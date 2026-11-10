@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cantinho de Carinho 💗</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background: #faf5f0;
+      font-family: Georgia, serif;
+      color: #705b52;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 430px;
+      padding: 35px 25px;
+      text-align: center;
+      background: #fffdfb;
+      border: 1px solid #eddfd7;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px #8b71651a;
+    }
+
+    .flower {
+      font-size: 38px;
+    }
+
+    h1 {
+      color: #a87979;
+      font-size: 29px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      margin: 15px 0;
+      border: 1px solid #decac2;
+      border-radius: 10px;
+      font-size: 16px;
+      outline-color: #bd9292;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #bd9292;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #a87979;
+    }
+
+    .anonymous {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .anonymous input {
+      width: auto;
+      margin-right: 6px;
+    }
+
+    #moodPage {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <section id="welcomePage">
+      <div class="flower">🌷</div>
+
+      <h1>Cantinho de Carinho</h1>
+
+      <p>
+        Olá! Que bom te ver por aqui!
+        Para começar, digite seu nome ou um apelido.
+      </p>
+
+      <input
+        type="text"
+        id="visitorName"
+        maxlength="30"
+        placeholder="Seu nome ou apelido"
+      >
+
+      <label class="anonymous">
+        <input type="checkbox" id="anonymous">
+        Manter-me anônimo
+      </label>
+
+      <button onclick="continuePage()">
+        Continuar 💗
+      </button>
+    </section>
+
+    <section id="moodPage">
+      <div class="flower">💌</div>
+
+      <h1>Que bom ter você aqui!</h1>
+
+      <p id="greeting"></p>
+
+      <p>Como você está hoje?</p>
+
+      <button onclick="chooseMood('feliz')">😄 Feliz</button>
+      <button onclick="chooseMood('bem')">😐 Bem</button>
+      <button onclick="chooseMood('mal')">😔 Mal</button>
+      <button onclick="chooseMood('muito mal')">😖 Muito mal</button>
+    </section>
+
+  </main>
+
+  <script>
+    function continuePage() {
+      const name = document.getElementById("visitorName").value.trim();
+      const anonymous = document.getElementById("anonymous").checked;
+
+      if (!name && !anonymous) {
+        alert("Digite seu nome ou escolha permanecer anônimo.");
+        return;
+      }
+
+      const greeting = document.getElementById("greeting");
+
+      greeting.textContent = anonymous
+        ? "Que bom te ver por aqui! 💗"
+        : "Que bom te ver por aqui, " + name + "! 💗";
+
+      document.getElementById("welcomePage").style.display = "none";
+      document.getElementById("moodPage").style.display = "block";
+    }
+
+    function chooseMood(mood) {
+      alert("Você escolheu: " + mood + ". Vamos preparar essa página! 💗");
+    }
+  </script>
+</body>
+</html>
