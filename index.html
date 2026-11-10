@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Cantinho de Carinho 💗</title>
 
   <style>
@@ -14,10 +15,10 @@
     body {
       margin: 0;
       min-height: 100vh;
+      padding: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
       background: #faf5f0;
       font-family: Georgia, serif;
       color: #705b52;
@@ -25,7 +26,7 @@
 
     .container {
       width: 100%;
-      max-width: 430px;
+      max-width: 460px;
       padding: 35px 25px;
       text-align: center;
       background: #fffdfb;
@@ -40,23 +41,35 @@
 
     h1 {
       color: #a87979;
-      font-size: 29px;
+      font-size: 28px;
       margin-bottom: 12px;
     }
 
-    p {
-      line-height: 1.7;
-      font-size: 16px;
+    h2 {
+      color: #a87979;
+      font-size: 22px;
     }
 
-    input {
+    p {
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    input, textarea {
       width: 100%;
       padding: 13px;
-      margin: 15px 0;
+      margin: 10px 0;
       border: 1px solid #decac2;
       border-radius: 10px;
-      font-size: 16px;
-      outline-color: #bd9292;
+      font-family: Georgia, serif;
+      font-size: 15px;
+      background: #fff;
+      color: #705b52;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
     }
 
     button {
@@ -67,101 +80,406 @@
       border-radius: 10px;
       background: #bd9292;
       color: white;
+      font-family: Georgia, serif;
       font-size: 16px;
       cursor: pointer;
+      transition: 0.2s;
     }
 
     button:hover {
       background: #a87979;
     }
 
+    button.secondary {
+      background: #eee3dc;
+      color: #705b52;
+    }
+
+    button.secondary:hover {
+      background: #e4d3ca;
+    }
+
     .anonymous {
       display: block;
-      margin-top: 12px;
+      margin: 12px 0;
       font-size: 14px;
     }
 
     .anonymous input {
       width: auto;
-      margin-right: 6px;
     }
 
-    #moodPage {
+    .page {
       display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .back {
+      margin-top: 22px;
+      font-size: 14px;
+      color: #a87979;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .note {
+      font-size: 13px;
+      color: #9b8980;
+      margin-top: 20px;
     }
   </style>
 </head>
 
 <body>
-  <main class="container">
 
-    <section id="welcomePage">
-      <div class="flower">🌷</div>
+<main class="container">
 
-      <h1>Cantinho de Carinho</h1>
+  <!-- BOAS-VINDAS -->
 
-      <p>
-        Olá! Que bom te ver por aqui!
-        Para começar, digite seu nome ou um apelido.
-      </p>
+  <section id="welcomePage" class="page active">
+    <div class="flower">🌷</div>
 
-      <input
-        type="text"
-        id="visitorName"
-        maxlength="30"
-        placeholder="Seu nome ou apelido"
-      >
+    <h1>Cantinho de Carinho</h1>
 
-      <label class="anonymous">
-        <input type="checkbox" id="anonymous">
-        Manter-me anônimo
-      </label>
+    <p>
+      Olá! Que bom te ver por aqui!
+      Para começar, digite seu nome ou um apelido.
+    </p>
 
-      <button onclick="continuePage()">
-        Continuar 💗
-      </button>
-    </section>
+    <input
+      type="text"
+      id="visitorName"
+      maxlength="30"
+      placeholder="Seu nome ou apelido"
+    >
 
-    <section id="moodPage">
-      <div class="flower">💌</div>
+    <label class="anonymous">
+      <input type="checkbox" id="anonymous">
+      Manter-me anônimo
+    </label>
 
-      <h1>Que bom ter você aqui!</h1>
+    <button onclick="continuePage()">
+      Continuar 💗
+    </button>
+  </section>
 
-      <p id="greeting"></p>
 
-      <p>Como você está hoje?</p>
+  <!-- SENTIMENTO -->
 
-      <button onclick="chooseMood('feliz')">😄 Feliz</button>
-      <button onclick="chooseMood('bem')">😐 Bem</button>
-      <button onclick="chooseMood('mal')">😔 Mal</button>
-      <button onclick="chooseMood('muito mal')">😖 Muito mal</button>
-    </section>
+  <section id="moodPage" class="page">
+    <div class="flower">💌</div>
 
-  </main>
+    <h1>Que bom ter você aqui!</h1>
 
-  <script>
-    function continuePage() {
-      const name = document.getElementById("visitorName").value.trim();
-      const anonymous = document.getElementById("anonymous").checked;
+    <p id="greeting"></p>
 
-      if (!name && !anonymous) {
-        alert("Digite seu nome ou escolha permanecer anônimo.");
-        return;
-      }
+    <h2>Como você está hoje?</h2>
 
-      const greeting = document.getElementById("greeting");
+    <button onclick="showMood('happyPage')">
+      😄 Feliz
+    </button>
 
-      greeting.textContent = anonymous
+    <button onclick="showMood('okayPage')">
+      😐 Bem
+    </button>
+
+    <button onclick="showMood('sadPage')">
+      😔 Mal
+    </button>
+
+    <button onclick="showMood('verySadPage')">
+      😖 Muito mal
+    </button>
+
+    <button class="back" onclick="goTo('welcomePage')">
+      ← Voltar
+    </button>
+  </section>
+
+
+  <!-- FELIZ -->
+
+  <section id="happyPage" class="page">
+    <div class="flower">🌸</div>
+
+    <h1>Que alegria!</h1>
+
+    <p>
+      Que bom que está feliz!
+      Ficamos muito contentes em sabermos isso!
+    </p>
+
+    <p>
+      Gostaria de alegrar o dia de alguém
+      ou contar algum acontecimento?
+    </p>
+
+    <button onclick="openEditor('letterPage')">
+      💌 Motivar o dia de alguém
+    </button>
+
+    <button onclick="openEditor('postPage')">
+      ✨ Escrever sobre um acontecimento
+    </button>
+
+    <button class="back" onclick="goTo('moodPage')">
+      ← Voltar
+    </button>
+  </section>
+
+
+  <!-- BEM -->
+
+  <section id="okayPage" class="page">
+    <div class="flower">🌷</div>
+
+    <h1>Que bom!</h1>
+
+    <p>
+      Às vezes, estar bem já é uma coisa boa.
+      Esperamos que seu dia continue agradável!
+    </p>
+
+    <p>
+      Que tal compartilhar algo ou conhecer
+      um pouquinho das histórias de outras pessoas?
+    </p>
+
+    <button onclick="openEditor('postPage')">
+      ✨ Compartilhar um acontecimento
+    </button>
+
+    <button onclick="goTo('readingPage')">
+      💌 Ler cartas e histórias
+    </button>
+
+    <button class="back" onclick="goTo('moodPage')">
+      ← Voltar
+    </button>
+  </section>
+
+
+  <!-- MAL -->
+
+  <section id="sadPage" class="page">
+    <div class="flower">🫂</div>
+
+    <h1>Estamos aqui para acolher você.</h1>
+
+    <p>
+      Nem todos os dias são fáceis, e tudo bem
+      não estar bem o tempo inteiro.
+    </p>
+
+    <p>
+      Você não precisa fingir que está tudo bem.
+      Que tal receber um pouquinho de carinho?
+    </p>
+
+    <button onclick="goTo('readingPage')">
+      💗 Ler palavras de carinho
+    </button>
+
+    <button onclick="openEditor('postPage')">
+      📝 Escrever sobre o que estou sentindo
+    </button>
+
+    <button class="back" onclick="goTo('moodPage')">
+      ← Voltar
+    </button>
+  </section>
+
+
+  <!-- MUITO MAL -->
+
+  <section id="verySadPage" class="page">
+    <div class="flower">🤍</div>
+
+    <h1>Um abraço em forma de palavras.</h1>
+
+    <p>
+      Sentimos muito que hoje esteja sendo
+      um dia difícil.
+    </p>
+
+    <p>
+      Seus sentimentos merecem atenção e cuidado.
+      Não precisa resolver tudo agora.
+      Vá no seu tempo.
+    </p>
+
+    <button onclick="goTo('readingPage')">
+      💌 Receber palavras de carinho
+    </button>
+
+    <button onclick="openEditor('postPage')">
+      📝 Escrever, se desejar
+    </button>
+
+    <button class="back" onclick="goTo('moodPage')">
+      ← Voltar
+    </button>
+  </section>
+
+
+  <!-- CARTAS E HISTÓRIAS -->
+
+  <section id="readingPage" class="page">
+    <div class="flower">💌</div>
+
+    <h1>Um cantinho de palavras</h1>
+
+    <p>
+      Aqui você poderá encontrar cartas
+      escritas com carinho e histórias
+      compartilhadas por outras pessoas.
+    </p>
+
+    <p>
+      Em breve, nossos envelopes estarão por aqui!
+    </p>
+
+    <button class="secondary" onclick="goTo('moodPage')">
+      Voltar aos sentimentos
+    </button>
+  </section>
+
+
+  <!-- ESCREVER CARTA -->
+
+  <section id="letterPage" class="page">
+    <div class="flower">💌</div>
+
+    <h1>Uma carta de carinho</h1>
+
+    <p>
+      Escreva algumas palavras que possam
+      alegrar o dia de alguém.
+    </p>
+
+    <input
+      type="text"
+      id="letterTitle"
+      maxlength="60"
+      placeholder="Título da sua carta"
+    >
+
+    <textarea
+      id="letterText"
+      maxlength="2000"
+      placeholder="Escreva sua mensagem aqui..."
+    ></textarea>
+
+    <button onclick="saveDraft('letterTitle', 'letterText')">
+      Guardar rascunho
+    </button>
+
+    <p class="note">
+      A publicação de cartas será implementada
+      quando conectarmos nosso banco de dados.
+    </p>
+
+    <button class="back" onclick="goTo('moodPage')">
+      ← Voltar
+    </button>
+  </section>
+
+
+  <!-- ESCREVER PUBLICAÇÃO -->
+
+  <section id="postPage" class="page">
+    <div class="flower">🌷</div>
+
+    <h1>Compartilhe seu momento</h1>
+
+    <p>
+      Toda história tem seu valor.
+      Se desejar, conte um acontecimento
+      ou compartilhe seus pensamentos.
+    </p>
+
+    <input
+      type="text"
+      id="postTitle"
+      maxlength="60"
+      placeholder="Título da publicação"
+    >
+
+    <textarea
+      id="postText"
+      maxlength="2000"
+      placeholder="Conte sua história..."
+    ></textarea>
+
+    <button onclick="saveDraft('postTitle', 'postText')">
+      Guardar rascunho
+    </button>
+
+    <p class="note">
+      As publicações compartilhadas serão
+      implementadas na próxima etapa.
+    </p>
+
+    <button class="back" onclick="goTo('moodPage')">
+      ← Voltar
+    </button>
+  </section>
+
+</main>
+
+
+<script>
+
+  function goTo(pageId) {
+    document.querySelectorAll(".page").forEach(page => {
+      page.classList.remove("active");
+    });
+
+    document.getElementById(pageId).classList.add("active");
+  }
+
+  function continuePage() {
+    const name = document.getElementById("visitorName").value.trim();
+    const anonymous = document.getElementById("anonymous").checked;
+
+    if (!name && !anonymous) {
+      alert("Digite seu nome ou escolha permanecer anônimo.");
+      return;
+    }
+
+    document.getElementById("greeting").textContent =
+      anonymous
         ? "Que bom te ver por aqui! 💗"
         : "Que bom te ver por aqui, " + name + "! 💗";
 
-      document.getElementById("welcomePage").style.display = "none";
-      document.getElementById("moodPage").style.display = "block";
+    goTo("moodPage");
+  }
+
+  function showMood(pageId) {
+    goTo(pageId);
+  }
+
+  function openEditor(pageId) {
+    goTo(pageId);
+  }
+
+  function saveDraft(titleId, textId) {
+    const title = document.getElementById(titleId).value.trim();
+    const content = document.getElementById(textId).value.trim();
+
+    if (!title || !content) {
+      alert("Preencha o título e a mensagem antes de continuar.");
+      return;
     }
 
-    function chooseMood(mood) {
-      alert("Você escolheu: " + mood + ". Vamos preparar essa página! 💗");
-    }
-  </script>
+    alert("Seu texto está preenchido! A função de salvar e publicar será adicionada em outra etapa. 💗");
+  }
+
+</script>
+
 </body>
 </html>
